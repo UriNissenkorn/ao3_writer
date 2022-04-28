@@ -10,6 +10,7 @@ class Ao3Spider(scrapy.Spider):
 
     def parse(self, response):
         story_links = response.css('ol.work>li h4.heading a[href*=work]::attr(href)').getall()
+        story_links = [link+'?view_adult=true' for link in story_links]
         yield from response.follow_all(story_links, self.parse_story)
 
         next_page = response.css('li.next a::attr(href)').get()
@@ -27,6 +28,6 @@ class Ao3Spider(scrapy.Spider):
             "character":response.css('dd.character a.tag::text').getall(),
             "freeform":response.css('dd.freeform a.tag::text').getall(),
             "title":response.css('#workskin .title::text').get(),
-            "summary":response.css('#workskin .summary blockquote::text').getall(),
-            "story":response.css('#workskin #chapters::text').getall(),
+            "summary":response.xpath("//*[@id='workskin']//*[@class='summary module']//blockquote//text()").getall(),
+            "story":response.xpath("//*[@id='workskin']//*[@id='chapters']//text()").getall(),
         }

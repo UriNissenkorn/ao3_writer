@@ -12,12 +12,17 @@ BOT_NAME = 'ao3_scraper'
 SPIDER_MODULES = ['ao3_scraper.spiders']
 NEWSPIDER_MODULE = 'ao3_scraper.spiders'
 
-
+# Desired file format
+FEED_FORMAT = "jsonlines"
+ 
+# Name of the file where
+# data extracted is stored
+FEED_URI = "ao3.json"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ao3_scraper (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
